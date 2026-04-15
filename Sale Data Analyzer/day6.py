@@ -1,33 +1,34 @@
-data = [
-    ["A", 2, 100],
-    ["B", 1, 200],
-    ["A", 3, 100],
-    ["C", 5, 50]
-]
+def read_csv(file):
+    data = []
+    
+    with open(file, "r") as f:
+        next(f)  # skip header
+        
+        for line in f:
+            p, q, pr = line.strip().split(",")
+            data.append([p, int(q), int(pr)])
+    
+    return data
+
 
 def analyze_sales(data):
     sales = {}
     total_revenue = 0
 
-    for product, qty, price in data:
-        total = qty * price  # bonus column
-        
+    for p, q, pr in data:
+        total = q * pr
         total_revenue += total
         
-        if product in sales:
-            sales[product] += total
-        else:
-            sales[product] = total
+        sales[p] = sales.get(p, 0) + total
 
-    # Top selling product
     top_product = max(sales, key=sales.get)
-
-    # Sort by revenue (bonus)
     sorted_sales = sorted(sales.items(), key=lambda x: x[1], reverse=True)
 
     return sales, total_revenue, top_product, sorted_sales
 
 
+# Run
+data = read_csv("sales.csv")
 sales, revenue, top, sorted_sales = analyze_sales(data)
 
 print("Sales per Product:", sales)
