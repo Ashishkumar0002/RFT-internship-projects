@@ -14,12 +14,12 @@ min_day = dates[sales.index(min_sale)]
 plt.plot(dates, sales, marker='o')
 
 # Highlight highest point
-plt.scatter(max_day, max_sale)
-plt.text(max_day, max_sale, f"High: {max_sale}")
+plt.scatter([max_day], [max_sale], color='green', zorder=5)
+plt.text(max_day, max_sale + 5, f"High: {max_sale}", color='green')
 
 # Highlight lowest point
-plt.scatter(min_day, min_sale)
-plt.text(min_day, min_sale, f"Low: {min_sale}")
+plt.scatter([min_day], [min_sale], color='red', zorder=5)
+plt.text(min_day, min_sale - 15, f"Low: {min_sale}", color='red')
 
 # Labels & title
 plt.title("Sales Trend (Mon–Fri)")
